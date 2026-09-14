@@ -26,7 +26,7 @@ const socialLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/YOUR_LINKEDIN_COMPANY_NAME/",
+    href: "https://www.linkedin.com/in/syed-shuaib-2772822a7",
     icon: FaLinkedinIn,
   },
   {
