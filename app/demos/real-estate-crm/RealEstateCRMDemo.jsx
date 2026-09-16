@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 
@@ -89,6 +89,35 @@ const initialLeads = [
     lastContact: "Not contacted",
     priority: "High",
   },
+  {
+    id: "LD-1042",
+    name: "Michael Turner",
+    phone: "+971 55 472 1915",
+    email: "michael.t@example.com",
+    source: "Website",
+    property: "2BR Apartment — Dubai Creek Harbour",
+    budget: "AED 1.65M",
+    agent: "Sarah Khan",
+    status: "Closed Won",
+    created: "Yesterday",
+    lastContact: "35 min ago",
+    priority: "High",
+  },
+  {
+    id: "LD-1041",
+    name: "Rashid Kareem",
+    phone: "+971 50 783 0248",
+    email: "rashid.k@example.com",
+    source: "Property Portal",
+    property: "1BR Apartment — Dubai Marina",
+    budget: "AED 450K",
+    agent: "Omar Ali",
+    status: "Not Qualified",
+    qualificationReason: "Budget does not match available listings",
+    created: "Yesterday",
+    lastContact: "Yesterday",
+    priority: "Low",
+  },
 ];
 
 const activities = [
@@ -150,13 +179,47 @@ const pipelineColumns = [
   "Contacted",
   "Viewing Booked",
   "Negotiation",
+  "Closed Won",
+  "Not Qualified",
+];
+
+const qualificationReasons = [
+  "Duplicate enquiry",
+  "Wrong contact details",
+  "Budget does not match available listings",
+  "Outside target location",
+  "Not ready to buy or rent",
+  "No response after follow-up",
+  "Property no longer suitable",
+  "Other",
 ];
 
 export default function RealEstateCRMDemo() {
+  const [isDesktopDemo, setIsDesktopDemo] = useState(null);
   const [leads, setLeads] = useState(initialLeads);
   const [selectedLead, setSelectedLead] = useState(initialLeads[0]);
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    function checkScreenSize() {
+      setIsDesktopDemo(window.innerWidth >= 768);
+    }
+
+    checkScreenSize();
+
+    if (window.innerWidth < 768) {
+      track("real_estate_demo_mobile_blocked", {
+        viewport_group: "mobile",
+      });
+    }
+
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   const filteredLeads = useMemo(() => {
     const value = search.trim().toLowerCase();
@@ -173,7 +236,9 @@ export default function RealEstateCRMDemo() {
         lead.agent,
         lead.source,
         lead.status,
+        lead.qualificationReason,
       ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase()
         .includes(value)
@@ -181,15 +246,48 @@ export default function RealEstateCRMDemo() {
   }, [leads, search]);
 
   function updateLeadStatus(leadId, newStatus) {
+    const updates =
+      newStatus === "Not Qualified"
+        ? {
+            status: newStatus,
+            qualificationReason: "Select a reason",
+          }
+        : {
+            status: newStatus,
+            qualificationReason: undefined,
+          };
+
     setLeads((currentLeads) =>
       currentLeads.map((lead) =>
-        lead.id === leadId ? { ...lead, status: newStatus } : lead
+        lead.id === leadId ? { ...lead, ...updates } : lead
       )
     );
 
     setSelectedLead((currentLead) =>
       currentLead?.id === leadId
-        ? { ...currentLead, status: newStatus }
+        ? { ...currentLead, ...updates }
+        : currentLead
+    );
+  }
+
+  function updateQualificationReason(leadId, qualificationReason) {
+    setLeads((currentLeads) =>
+      currentLeads.map((lead) =>
+        lead.id === leadId
+          ? {
+              ...lead,
+              qualificationReason,
+            }
+          : lead
+      )
+    );
+
+    setSelectedLead((currentLead) =>
+      currentLead?.id === leadId
+        ? {
+            ...currentLead,
+            qualificationReason,
+          }
         : currentLead
     );
   }
@@ -198,25 +296,39 @@ export default function RealEstateCRMDemo() {
     setSelectedLead(lead);
   }
 
+  if (isDesktopDemo === null) {
+    return (
+      <main className="demo-device-loading" aria-label="Loading demo">
+        <span className="demo-device-loader" />
+      </main>
+    );
+  }
+
+  if (!isDesktopDemo) {
+    return <MobileDemoNotice />;
+  }
+
   return (
     <main className="crm-demo-page">
       <div className="demo-notice">
         <div className="demo-notice-inner">
           <span className="demo-notice-dot" />
           <strong>Demo Environment</strong>
-          <span>Fictional sample data. Built by ZenStax for demonstration purposes.</span>
+          <span>
+            Fictional sample data. Built by ZenStax for demonstration purposes.
+          </span>
+
           <Link
-  href="/contact?challenge=crm-erp"
-  className="button"
-  onClick={() =>
-    track("real_estate_demo_cta_click", {
-      location: "demo_bottom_cta",
-    })
-  }
->
-  Request a Free 20-Minute CRM Review -{">"}
-  
-</Link>
+            href="/contact?challenge=crm-erp"
+            className="demo-notice-link"
+            onClick={() =>
+              track("real_estate_demo_cta_click", {
+                location: "demo_top_notice",
+              })
+            }
+          >
+            Request a Free 20-Minute CRM Review →
+          </Link>
         </div>
       </div>
 
@@ -262,6 +374,7 @@ export default function RealEstateCRMDemo() {
           <div className="crm-sidebar-bottom">
             <div className="crm-user">
               <span className="crm-avatar">ZA</span>
+
               <div>
                 <strong>ZenStax Admin</strong>
                 <small>Demo workspace</small>
@@ -330,18 +443,21 @@ export default function RealEstateCRMDemo() {
                     change="+4 from yesterday"
                     accent="orange"
                   />
+
                   <StatCard
                     label="Follow-ups due"
                     value="7"
                     change="3 need attention"
                     accent="red"
                   />
+
                   <StatCard
                     label="Viewings this week"
                     value="24"
                     change="+18% from last week"
                     accent="blue"
                   />
+
                   <StatCard
                     label="Qualified pipeline"
                     value="AED 18.6M"
@@ -371,7 +487,10 @@ export default function RealEstateCRMDemo() {
                         <span className="pipeline-label">New</span>
                         <strong>18</strong>
                         <div className="pipeline-track">
-                          <span className="pipeline-fill fill-orange" style={{ width: "82%" }} />
+                          <span
+                            className="pipeline-fill fill-orange"
+                            style={{ width: "82%" }}
+                          />
                         </div>
                       </div>
 
@@ -379,7 +498,10 @@ export default function RealEstateCRMDemo() {
                         <span className="pipeline-label">Contacted</span>
                         <strong>32</strong>
                         <div className="pipeline-track">
-                          <span className="pipeline-fill fill-blue" style={{ width: "67%" }} />
+                          <span
+                            className="pipeline-fill fill-blue"
+                            style={{ width: "67%" }}
+                          />
                         </div>
                       </div>
 
@@ -387,7 +509,10 @@ export default function RealEstateCRMDemo() {
                         <span className="pipeline-label">Viewing booked</span>
                         <strong>24</strong>
                         <div className="pipeline-track">
-                          <span className="pipeline-fill fill-purple" style={{ width: "52%" }} />
+                          <span
+                            className="pipeline-fill fill-purple"
+                            style={{ width: "52%" }}
+                          />
                         </div>
                       </div>
 
@@ -395,7 +520,10 @@ export default function RealEstateCRMDemo() {
                         <span className="pipeline-label">Negotiation</span>
                         <strong>12</strong>
                         <div className="pipeline-track">
-                          <span className="pipeline-fill fill-green" style={{ width: "33%" }} />
+                          <span
+                            className="pipeline-fill fill-green"
+                            style={{ width: "33%" }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -425,7 +553,10 @@ export default function RealEstateCRMDemo() {
                         <span>→</span>
                       </button>
 
-                      <button type="button" onClick={() => setActiveSection("Viewings")}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveSection("Viewings")}
+                      >
                         <span className="attention-icon calendar">◷</span>
                         <span>
                           <strong>6 viewings tomorrow</strong>
@@ -434,7 +565,10 @@ export default function RealEstateCRMDemo() {
                         <span>→</span>
                       </button>
 
-                      <button type="button" onClick={() => setActiveSection("Reports")}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveSection("Reports")}
+                      >
                         <span className="attention-icon message">◌</span>
                         <span>
                           <strong>7 follow-ups due</strong>
@@ -457,7 +591,10 @@ export default function RealEstateCRMDemo() {
 
                     <div className="activity-list">
                       {activities.map((activity) => (
-                        <div className="activity-item" key={`${activity.time}-${activity.title}`}>
+                        <div
+                          className="activity-item"
+                          key={`${activity.time}-${activity.title}`}
+                        >
                           <span className={`activity-icon ${activity.type}`}>
                             {activity.type === "lead" && "+"}
                             {activity.type === "viewing" && "◷"}
@@ -518,6 +655,7 @@ export default function RealEstateCRMDemo() {
                 selectedLead={selectedLead}
                 onSelectLead={selectLead}
                 onUpdateStatus={updateLeadStatus}
+                onUpdateQualificationReason={updateQualificationReason}
               />
             )}
 
@@ -533,6 +671,7 @@ export default function RealEstateCRMDemo() {
                   around the client&apos;s actual workflow, team roles, and
                   reporting requirements.
                 </p>
+
                 <button
                   type="button"
                   className="crm-add-lead"
@@ -562,17 +701,17 @@ export default function RealEstateCRMDemo() {
             </p>
 
             <Link
-  href="/contact?challenge=crm-erp"
-  className="button button-primary"
-  onClick={() =>
-    track("real_estate_demo_cta_click", {
-      location: "demo_bottom_cta",
-    })
-  }
->
-  Request a Free 20-Minute CRM Review
-  <span aria-hidden="true">→</span>
-</Link>
+              href="/contact?challenge=crm-erp"
+              className="button button-primary"
+              onClick={() =>
+                track("real_estate_demo_cta_click", {
+                  location: "demo_bottom_cta",
+                })
+              }
+            >
+              Request a Free 20-Minute CRM Review
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -595,6 +734,7 @@ function LeadWorkspace({
   selectedLead,
   onSelectLead,
   onUpdateStatus,
+  onUpdateQualificationReason,
 }) {
   return (
     <section className="lead-workspace">
@@ -627,22 +767,31 @@ function LeadWorkspace({
                     }`}
                     key={lead.id}
                     onClick={() => {
-        track("demo_lead_selected", {
-            stage: lead.status,
-        });
+                      track("demo_lead_selected", {
+                        stage: lead.status,
+                      });
 
-        onSelectLead(lead);
-        }}
+                      onSelectLead(lead);
+                    }}
                   >
                     <div className="lead-card-top">
                       <span>{lead.id}</span>
-                      <span className={`priority ${lead.priority.toLowerCase()}`}>
+                      <span
+                        className={`priority ${lead.priority.toLowerCase()}`}
+                      >
                         {lead.priority}
                       </span>
                     </div>
 
                     <strong>{lead.name}</strong>
                     <p>{lead.property}</p>
+
+                    {lead.status === "Not Qualified" &&
+                      lead.qualificationReason && (
+                        <span className="not-qualified-reason">
+                          {lead.qualificationReason}
+                        </span>
+                      )}
 
                     <div className="lead-card-footer">
                       <span>{lead.agent}</span>
@@ -705,21 +854,61 @@ function LeadWorkspace({
             </div>
           </div>
 
-          <label className="lead-status-control">
-            Lead status
-            <select
-              value={selectedLead.status}
-              onChange={(event) =>
-                onUpdateStatus(selectedLead.id, event.target.value)
-              }
-            >
-              {pipelineColumns.map((status) => (
-                <option value={status} key={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="lead-status-fields">
+            <label className="lead-status-control">
+              Lead status
+
+              <select
+                value={selectedLead.status}
+                onChange={(event) => {
+                  track("demo_status_changed", {
+                    from_stage: selectedLead.status,
+                    to_stage: event.target.value,
+                  });
+
+                  onUpdateStatus(selectedLead.id, event.target.value);
+                }}
+              >
+                {pipelineColumns.map((status) => (
+                  <option value={status} key={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {selectedLead.status === "Not Qualified" && (
+              <label className="lead-status-control">
+                Qualification reason
+
+                <select
+                  value={
+                    selectedLead.qualificationReason || "Select a reason"
+                  }
+                  onChange={(event) => {
+                    track("demo_not_qualified_reason_selected", {
+                      reason: event.target.value,
+                    });
+
+                    onUpdateQualificationReason(
+                      selectedLead.id,
+                      event.target.value
+                    );
+                  }}
+                >
+                  <option value="Select a reason" disabled>
+                    Select a reason
+                  </option>
+
+                  {qualificationReasons.map((reason) => (
+                    <option value={reason} key={reason}>
+                      {reason}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </div>
 
           <div className="lead-detail-actions">
             <button type="button">Add follow-up</button>
@@ -728,5 +917,59 @@ function LeadWorkspace({
         </aside>
       )}
     </section>
+  );
+}
+
+function MobileDemoNotice() {
+  return (
+    <main className="demo-device-page">
+      <section className="demo-device-card">
+        <Link href="/" className="demo-device-brand" aria-label="ZenStax home">
+          <span className="demo-device-brand-mark">Z</span>
+          <span>
+            Zen<span>Stax</span>
+          </span>
+        </Link>
+
+        <div className="demo-device-icon" aria-hidden="true">
+          <span className="demo-device-monitor" />
+          <span className="demo-device-phone" />
+        </div>
+
+        <p className="section-label">Desktop demo experience</p>
+
+        <h1>This CRM demo works best on a larger screen.</h1>
+
+        <p>
+          The interactive Real Estate Lead CRM is designed for desktop and
+          tablet screens, where you can clearly explore the lead pipeline,
+          follow-ups, viewings, agent activity, and CRM workflow.
+        </p>
+
+        <div className="demo-device-minimum">
+          <span>✓</span>
+          Use a desktop or tablet screen at least 768px wide
+        </div>
+
+        <div className="demo-device-actions">
+          <Link href="/services/crm-erp" className="button button-primary">
+            Explore CRM & ERP Services
+            <span aria-hidden="true">→</span>
+          </Link>
+
+          <Link
+            href="/contact?challenge=crm-erp"
+            className="button button-secondary"
+          >
+            Request a CRM Review
+          </Link>
+        </div>
+
+        <p className="demo-device-note">
+          This is a fictional ZenStax demo environment. No real property,
+          customer, or company data is shown.
+        </p>
+      </section>
+    </main>
   );
 }
