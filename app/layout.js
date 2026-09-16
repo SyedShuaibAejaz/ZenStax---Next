@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { Analytics } from "@vercel/analytics/next"
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -24,8 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className={manrope.variable}>
+        
         <Header />
-        <main>{children}</main>
+        <main>{children}
+          <Analytics />
+        </main>
         <Footer />
         <WhatsAppButton />
       </body>

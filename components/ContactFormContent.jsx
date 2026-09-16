@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useForm, ValidationError } from "@formspree/react";
 import { FaWhatsapp } from "react-icons/fa";
 
+
 const challengeMessages = {
   "customer-follow-ups":
     "I would like help improving customer follow-ups, reminders, and response times.",

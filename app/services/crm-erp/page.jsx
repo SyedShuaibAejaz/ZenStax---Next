@@ -62,6 +62,29 @@ export default function CRMERPPage() {
           </div>
         </div>
       </section>
+      <section className="demo-promo-section">
+  <div className="container demo-promo-card">
+    <div>
+      <p className="section-label">Interactive demo</p>
+
+      <h2>See how a real estate CRM can manage every lead.</h2>
+
+      <p>
+        Explore a fictional ZenStax CRM demo showing lead sources, agent
+        assignment, follow-up alerts, viewing stages, and sales pipeline
+        visibility.
+      </p>
+    </div>
+
+    <Link
+      href="/demos/real-estate-crm"
+      className="button button-primary"
+    >
+      Open CRM Demo
+      <span aria-hidden="true">→</span>
+    </Link>
+  </div>
+</section>
     </>
   );
 }

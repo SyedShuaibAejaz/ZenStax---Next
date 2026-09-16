@@ -93,13 +93,7 @@ export default function Footer() {
           <div className="footer-links">
             <a href="mailto:contactus@zenstaxit.net">contactus@zenstaxit.net</a>
             <Link href="/contact">Discuss a project</Link>
-            <a
-              href="https://www.zenstaxit.net"
-              target="_blank"
-              rel="noreferrer"
-            >
-              www.zenstaxit.net
-            </a>
+            <Link href="/privacy-policy">Privacy Policy</Link>
           </div>
         </div>
       </div>
