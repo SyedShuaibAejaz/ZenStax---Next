@@ -159,13 +159,13 @@ export default function ContactFormContent() {
               <div>
                 <span>Email</span>
                 <a href="mailto:hello@zenstaxit.net">
-                  hello@zenstaxit.net
+                  contactus@zenstaxit.net
                 </a>
               </div>
 
               <div>
                 <span>Location</span>
-                <p>Dubai, United Arab Emirates</p>
+                <p>Ajman, United Arab Emirates</p>
               </div>
 
               <div>
