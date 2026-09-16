@@ -91,7 +91,7 @@ export default function Footer() {
           <h3>Contact</h3>
 
           <div className="footer-links">
-            <a href="mailto:hello@zenstaxit.net">hello@zenstaxit.net</a>
+            <a href="mailto:contactus@zenstaxit.net">contactus@zenstaxit.net</a>
             <Link href="/contact">Discuss a project</Link>
             <a
               href="https://www.zenstaxit.net"
@@ -106,7 +106,7 @@ export default function Footer() {
 
       <div className="container footer-bottom">
         <p>© {year} ZenStax. All rights reserved.</p>
-        <p>Dubai, United Arab Emirates</p>
+        <p>Ajman, United Arab Emirates</p>
       </div>
     </footer>
   );
