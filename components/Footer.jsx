@@ -29,11 +29,6 @@ const socialLinks = [
     href: "https://www.linkedin.com/in/syed-shuaib-2772822a7",
     icon: FaLinkedinIn,
   },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/YOUR_FACEBOOK_PAGE_NAME/",
-    icon: FaFacebookF,
-  },
 ];
 
 export default function Footer() {
