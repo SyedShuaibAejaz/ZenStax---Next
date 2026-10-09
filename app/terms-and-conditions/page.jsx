@@ -308,11 +308,11 @@ const sections = [
     blocks: [
       {
         type: 'p',
-        text: 'These terms, and any dispute connected with them, are governed by the laws of the United Arab Emirates as applied in the Emirate of Dubai.',
+        text: 'These terms, and any dispute connected with them, are governed by the laws of the United Arab Emirates.',
       },
       {
         type: 'p',
-        text: 'We will first try to resolve any dispute through good-faith discussion. If it cannot be resolved, the courts of Dubai have jurisdiction, unless your agreement states a different forum.',
+        text: 'We will first try to resolve any dispute through good-faith discussion. If it cannot be resolved, the competent courts of the United Arab Emirates have jurisdiction, unless your agreement states a different forum.',
       },
     ],
   },

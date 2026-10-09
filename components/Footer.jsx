@@ -6,12 +6,14 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
+
 const serviceLinks = [
   { label: "Custom Software", href: "/services/web-development" },
   { label: "AI Automation", href: "/services/ai" },
   { label: "CRM & ERP", href: "/services/crm-erp" },
   { label: "Network & Security", href: "/services/network-security" },
 ];
+
 
 const socialLinks = [
   {
@@ -31,8 +33,10 @@ const socialLinks = [
   },
 ];
 
+
 export default function Footer() {
   const year = new Date().getFullYear();
+
 
   return (
     <footer className="site-footer">
@@ -40,19 +44,23 @@ export default function Footer() {
         <div className="footer-brand">
           <p className="footer-kicker">ZenStax</p>
 
+
           <h2>
             Software. Data.
             <span> Network.</span>
           </h2>
+
 
           <p>
             We help businesses replace manual work with practical software,
             automation, network, and security solutions.
           </p>
 
+
           <div className="social-links" aria-label="ZenStax social media">
             {socialLinks.map((social) => {
               const Icon = social.icon;
+
 
               return (
                 <a
@@ -70,8 +78,10 @@ export default function Footer() {
           </div>
         </div>
 
+
         <div>
           <h3>Services</h3>
+
 
           <div className="footer-links">
             {serviceLinks.map((service) => (
@@ -82,16 +92,20 @@ export default function Footer() {
           </div>
         </div>
 
+
         <div>
           <h3>Contact</h3>
+
 
           <div className="footer-links">
             <a href="mailto:contactus@zenstaxit.net">contactus@zenstaxit.net</a>
             <Link href="/contact">Discuss a project</Link>
             <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-and-conditions">Terms and Conditions</Link>
           </div>
         </div>
       </div>
+
 
       <div className="container footer-bottom">
         <p>© {year} ZenStax. All rights reserved.</p>
