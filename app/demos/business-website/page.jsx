@@ -29,6 +29,15 @@ const projects = [
   { name: "Marina Penthouse", type: "Apartment interior", tone: "toneThree" },
 ];
 
+const marqueeItems = [
+  "Residential interiors",
+  "Office fit-out",
+  "Space planning",
+  "Retail design",
+  "Styling",
+  "Project management",
+];
+
 export default function BusinessWebsiteDemo() {
   return (
     <div className={styles.site}>
@@ -54,17 +63,29 @@ export default function BusinessWebsiteDemo() {
       </header>
 
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>Interior design studio</p>
-        <h1>
+        <div className={styles.blobOne} aria-hidden="true" />
+        <div className={styles.blobTwo} aria-hidden="true" />
+
+        <p
+          className={`${styles.eyebrow} ${styles.rise}`}
+          style={{ "--i": 0 }}
+        >
+          Interior design studio
+        </p>
+        <h1 className={styles.rise} style={{ "--i": 1 }}>
           Spaces designed to feel calm, <span>and work properly.</span>
         </h1>
-        <p>
+        <p className={styles.rise} style={{ "--i": 2 }}>
           We design homes and workplaces that are beautiful to look at and easy
           to live and work in.
         </p>
-        <div className={styles.heroActions}>
+        <div
+          className={`${styles.heroActions} ${styles.rise}`}
+          style={{ "--i": 3 }}
+        >
           <a href="#contact" className={styles.primary}>
             Book a consultation
+            <span aria-hidden="true">→</span>
           </a>
           <a href="#projects" className={styles.secondary}>
             View projects
@@ -72,12 +93,22 @@ export default function BusinessWebsiteDemo() {
         </div>
       </section>
 
+      <div className={styles.marquee} aria-hidden="true">
+        <div className={styles.marqueeTrack}>
+          {[...marqueeItems, ...marqueeItems].map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
+        </div>
+      </div>
+
       <section id="services" className={styles.section}>
-        <p className={styles.eyebrow}>What we do</p>
-        <h2>Design services for homes and businesses.</h2>
+        <p className={`${styles.eyebrow} ${styles.reveal}`}>What we do</p>
+        <h2 className={styles.reveal}>
+          Design services for homes and businesses.
+        </h2>
         <div className={styles.cardGrid}>
           {services.map((item) => (
-            <article key={item.title} className={styles.card}>
+            <article key={item.title} className={`${styles.card} ${styles.reveal}`}>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -86,12 +117,19 @@ export default function BusinessWebsiteDemo() {
       </section>
 
       <section id="projects" className={`${styles.section} ${styles.altSection}`}>
-        <p className={styles.eyebrow}>Selected work</p>
-        <h2>Recent projects.</h2>
+        <p className={`${styles.eyebrow} ${styles.reveal}`}>Selected work</p>
+        <h2 className={styles.reveal}>Recent projects.</h2>
         <div className={styles.projectGrid}>
           {projects.map((project) => (
-            <article key={project.name} className={styles.project}>
-              <div className={`${styles.projectImage} ${styles[project.tone]}`} />
+            <article
+              key={project.name}
+              className={`${styles.project} ${styles.reveal}`}
+            >
+              <div className={styles.projectFrame}>
+                <div
+                  className={`${styles.projectImage} ${styles[project.tone]}`}
+                />
+              </div>
               <h3>{project.name}</h3>
               <p>{project.type}</p>
             </article>
@@ -100,14 +138,14 @@ export default function BusinessWebsiteDemo() {
       </section>
 
       <section className={styles.section}>
-        <blockquote className={styles.quote}>
+        <blockquote className={`${styles.quote} ${styles.reveal}`}>
           “They listened first, then designed. The result feels like us.”
           <cite>Sample client testimonial</cite>
         </blockquote>
       </section>
 
       <section id="contact" className={`${styles.section} ${styles.contact}`}>
-        <div>
+        <div className={styles.reveal}>
           <p className={styles.eyebrow}>Get in touch</p>
           <h2>Tell us about your space.</h2>
           <p>
@@ -116,7 +154,7 @@ export default function BusinessWebsiteDemo() {
           </p>
         </div>
 
-        <form className={styles.form}>
+        <form className={`${styles.form} ${styles.reveal}`}>
           <label>
             Name
             <input type="text" placeholder="Your name" readOnly />
