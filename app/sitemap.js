@@ -46,16 +46,40 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/demos/business-website`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/demos/ai-automation`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/services/mobile-apps`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/demos/mobile-app`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/services/network-security`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/demos/network-security`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/about`,
