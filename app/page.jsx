@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HeroLiveCard from '../components/HeroLiveCard';
 import styles from './home-motion.module.css';
 
 export const metadata = {
@@ -175,31 +176,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className={`hero-side-card ${styles.slideIn}`}>
-            <p className='side-card-label'>ZenStax solutions</p>
-
-            <h2>
-              Replace scattered work with
-              <span> one clear system.</span>
-            </h2>
-
-            <div className='side-card-list'>
-              <div className={styles.rise} style={{ '--d': 5 }}>
-                <span>01</span>
-                <p>Organise customer, team, and operational information.</p>
-              </div>
-
-              <div className={styles.rise} style={{ '--d': 6 }}>
-                <span>02</span>
-                <p>Automate repetitive tasks and important follow-ups.</p>
-              </div>
-
-              <div className={styles.rise} style={{ '--d': 7 }}>
-                <span>03</span>
-                <p>Improve visibility, service consistency, and control.</p>
-              </div>
-            </div>
-          </div>
+          <HeroLiveCard />
         </div>
       </section>
 
