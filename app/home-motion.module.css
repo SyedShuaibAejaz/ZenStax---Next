@@ -1,0 +1,41 @@
+.demos{padding:88px 0;background:#f4f7fa}
+.demosHead{max-width:720px;margin-bottom:40px}
+.demosHead h2{margin:8px 0 12px}
+.demosHead p{margin:0;color:#51606f;line-height:1.7}
+
+.demoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.demoCard{display:flex;flex-direction:column;gap:10px;padding:26px;border:1px solid #e1e8ef;border-radius:18px;background:#fff;color:inherit;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.demoCard:hover,.demoCard:focus-visible{transform:translateY(-6px);border-color:#ff7a1a;box-shadow:0 22px 40px -24px rgba(11,31,51,.35)}
+.demoTag{align-self:flex-start;padding:4px 11px;border-radius:999px;background:rgba(255,122,26,.12);color:#c25400;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.demoCard h3{margin:0;color:#0b1f33;font-size:1.15rem}
+.demoCard p{flex:1;margin:0;color:#51606f;line-height:1.6}
+.demoGo{color:#ff7a1a;font-weight:600}
+.demoGo span{display:inline-block;transition:transform .25s ease}
+.demoCard:hover .demoGo span,.demoCard:focus-visible .demoGo span{transform:translateX(5px)}
+
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+@keyframes riseSlide{from{transform:translateY(22px)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(28px)}}
+@keyframes reveal{from{opacity:0;transform:translateY(28px)}}
+
+@media (prefers-reduced-motion:no-preference){
+  .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 90ms)}
+  .riseSlide{animation:riseSlide .8s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 90ms)}
+  .slideIn{animation:slideIn .9s cubic-bezier(.2,.7,.2,1) .25s backwards}
+
+  @supports (animation-timeline:view()){
+    .reveal{animation:reveal linear backwards;animation-timeline:view();animation-range:entry calc(var(--i,0) * 8%) entry calc(45% + var(--i,0) * 8%)}
+  }
+}
+
+@media (max-width:900px){
+  .demoGrid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .demos{padding:64px 0}
+  .demoGrid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .demoCard,.demoGo span{transition:none}
+  .demoCard:hover,.demoCard:focus-visible{transform:none}
+}
