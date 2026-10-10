@@ -1,6 +1,8 @@
 /** @type {import("next").NextConfig} */
 
+
 const isDevelopment = process.env.NODE_ENV === "development";
+
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -13,10 +15,11 @@ const contentSecurityPolicy = [
   `script-src 'self' 'unsafe-inline'${
     isDevelopment ? " 'unsafe-eval'" : ""
   }`,
-  "connect-src 'self' https://formspree.io",
+  "connect-src 'self' https://formspree.io https://yawfuqmqrijhyphnhtjj.supabase.co",
   "object-src 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
+
 
 const nextConfig = {
   async headers() {
@@ -54,6 +57,7 @@ const nextConfig = {
     ];
   },
 
+
   async redirects() {
     return [
       {
@@ -79,5 +83,6 @@ const nextConfig = {
     ];
   },
 };
+
 
 export default nextConfig;
