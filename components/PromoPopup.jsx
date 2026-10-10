@@ -9,11 +9,14 @@ import styles from './promo-popup.module.css';
 
 const FLAG_KEY = 'zenstax-welcome-v1';
 const LOGGED_KEY = 'zenstax-welcome-logged';
+const BRAND_KEY = 'zenstax-brand-seen';
+const AD_DAY_KEY = 'zenstax-ad-day';
 
 const BRAND_MS = 2400;
 const WELCOME_MS = 3200;
 const ADVANCE_MS = 320;
 const LOGO = ['Z', 'e', 'n', 'S', 't', 'a', 'x'];
+const AD_ORDER = ['main', 'website', 'mobile', 'network'];
 
 // Set to true to skip the intro for visitors arriving from a search engine.
 // Google can penalise large interstitials on mobile.
@@ -121,6 +124,35 @@ const ADS = {
   },
 };
 
+function todayKey() {
+  return new Date().toLocaleDateString('en-CA');
+}
+
+function readAdDay() {
+  try {
+    return JSON.parse(window.localStorage.getItem(AD_DAY_KEY)) || null;
+  } catch {
+    return null;
+  }
+}
+
+function saveAdDay(ad) {
+  try {
+    window.localStorage.setItem(
+      AD_DAY_KEY,
+      JSON.stringify({ date: todayKey(), ad })
+    );
+  } catch {
+    // Ignore blocked storage.
+  }
+}
+
+function nextDailyAd(last) {
+  const index = AD_ORDER.indexOf(last ? last.ad : '');
+
+  return AD_ORDER[(index + 1) % AD_ORDER.length];
+}
+
 export default function PromoPopup() {
   const [stage, setStage] = useState('idle');
   const [step, setStep] = useState(0);
@@ -130,13 +162,25 @@ export default function PromoPopup() {
   const actionsRef = useRef({});
   const advanceRef = useRef(null);
   const brandMsRef = useRef(BRAND_MS);
+  const modeRef = useRef('first');
 
   useEffect(() => {
+    let firstTime = true;
+    let brandSeen = false;
+
     try {
-      if (window.localStorage.getItem(FLAG_KEY)) {
-        return undefined;
-      }
+      firstTime = !window.localStorage.getItem(FLAG_KEY);
     } catch {
+      return undefined;
+    }
+
+    try {
+      brandSeen = Boolean(window.sessionStorage.getItem(BRAND_KEY));
+    } catch {
+      // Treat blocked session storage as a new session.
+    }
+
+    if (!firstTime && brandSeen) {
       return undefined;
     }
 
@@ -154,15 +198,25 @@ export default function PromoPopup() {
       brandMsRef.current = 700;
     }
 
-    setStage('brand');
+    modeRef.current = firstTime ? 'first' : 'returning';
 
     try {
-      if (!window.sessionStorage.getItem(LOGGED_KEY)) {
-        window.sessionStorage.setItem(LOGGED_KEY, '1');
-        trackEvent('welcome_shown');
-      }
+      window.sessionStorage.setItem(BRAND_KEY, '1');
     } catch {
       // Ignore blocked storage.
+    }
+
+    setStage(brandSeen ? 'welcome' : 'brand');
+
+    if (firstTime) {
+      try {
+        if (!window.sessionStorage.getItem(LOGGED_KEY)) {
+          window.sessionStorage.setItem(LOGGED_KEY, '1');
+          trackEvent('welcome_shown');
+        }
+      } catch {
+        // Ignore blocked storage.
+      }
     }
 
     return () => window.clearTimeout(advanceRef.current);
@@ -172,7 +226,13 @@ export default function PromoPopup() {
     let id;
 
     if (stage === 'brand') {
-      id = window.setTimeout(() => setStage('welcome'), brandMsRef.current);
+      id = window.setTimeout(() => {
+        if (modeRef.current === 'first') {
+          setStage('welcome');
+        } else {
+          actionsRef.current.afterBrand();
+        }
+      }, brandMsRef.current);
     } else if (stage === 'welcome') {
       id = window.setTimeout(() => setStage('survey'), WELCOME_MS);
     }
@@ -192,9 +252,26 @@ export default function PromoPopup() {
     const key = AD_FOR_INTEREST[interest] || 'main';
 
     markSeen();
+    saveAdDay(key);
     setAdKey(key);
     setStage('ad');
     trackEvent('ad_shown', { ad: key, interest: interest || null });
+  }
+
+  function afterBrand() {
+    const last = readAdDay();
+
+    if (last && last.date === todayKey()) {
+      setStage('done');
+      return;
+    }
+
+    const key = nextDailyAd(last);
+
+    saveAdDay(key);
+    setAdKey(key);
+    setStage('ad');
+    trackEvent('ad_shown', { ad: key, interest: null });
   }
 
   function finish(final) {
@@ -255,6 +332,11 @@ export default function PromoPopup() {
   }
 
   function skipAll() {
+    if (modeRef.current === 'returning') {
+      afterBrand();
+      return;
+    }
+
     finish(answers);
   }
 
@@ -273,7 +355,7 @@ export default function PromoPopup() {
   }
 
   useEffect(() => {
-    actionsRef.current = { skipAll, closeAd, stage };
+    actionsRef.current = { skipAll, closeAd, afterBrand, stage };
   });
 
   const active = stage !== 'idle' && stage !== 'done';
