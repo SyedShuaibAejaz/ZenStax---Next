@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import HeroLiveCard from '../components/HeroLiveCard';
+import PromoPopup from '../components/PromoPopup';
 import styles from './home-motion.module.css';
 
 export const metadata = {
@@ -140,7 +140,7 @@ export default function HomePage() {
       />
 
       <section className='hero'>
-        <div className='container hero-layout'>
+        <div className={`container hero-layout ${styles.heroSingle}`}>
           <div className='hero-content'>
             <p className={`eyebrow ${styles.rise}`} style={{ '--d': 0 }}>
               Software <span>•</span> Data <span>•</span> Network{' '}
@@ -175,8 +175,6 @@ export default function HomePage() {
               <span>Dubai & UAE support</span>
             </div>
           </div>
-
-          <HeroLiveCard />
         </div>
       </section>
 
@@ -508,6 +506,8 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      <PromoPopup />
     </>
   );
 }

@@ -1,0 +1,119 @@
+.backdrop{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:16px;overflow:hidden;color:#fff;background:radial-gradient(circle at 8% 0,rgba(255,116,32,.26),transparent 28%),radial-gradient(circle at 92% 100%,rgba(111,177,255,.16),transparent 30%),rgba(4,22,42,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+.brandStage{position:relative;display:grid;place-items:center;gap:18px;animation:brandOut 2.4s ease forwards}
+.logoGlow{position:absolute;top:50%;left:50%;width:min(520px,90vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,116,32,.28),transparent 66%);animation:glow 2.4s ease-in-out infinite}
+.logo{position:relative;display:flex;margin:0;font-size:clamp(3rem,11vw,5.6rem);font-weight:800;letter-spacing:-.05em;line-height:1}
+.letter{display:inline-block;animation:letterIn .8s cubic-bezier(.2,.8,.2,1) backwards}
+.letterAccent{color:#ff7420}
+.logoLine{position:relative;width:min(260px,52vw);height:3px;border-radius:2px;background:linear-gradient(90deg,transparent,#ff7420,transparent);animation:lineIn .9s cubic-bezier(.2,.8,.2,1) .7s backwards}
+.brandSkip{position:fixed;right:20px;bottom:20px;padding:10px 14px;border:0;background:none;color:#8fa7bd;font-size:.85rem;font-weight:700;cursor:pointer}
+.brandSkip:hover{color:#fff}
+
+.fitPanel,.fitAd{transform-origin:center;transition:transform .15s ease-out;will-change:transform}
+.fitPanel{width:min(720px,calc(100vw - 32px))}
+.fitAd{width:min(1040px,calc(100vw - 32px))}
+
+.panel,.adPanel{position:relative;width:100%;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:28px;color:#fff;outline:none;box-shadow:0 40px 100px rgba(0,0,0,.55);background:radial-gradient(circle at 8% 0,rgba(255,116,32,.3),transparent 30%),radial-gradient(circle at 92% 100%,rgba(111,177,255,.14),transparent 34%),linear-gradient(125deg,#061d36 0,#082949 58%,#031326 100%)}
+.panel{padding:34px 36px 28px}
+.adPanel{padding:44px}
+
+.brand{margin:0 0 20px;font-size:1.3rem;font-weight:800;letter-spacing:-.04em}
+.brand span{color:#ff7420}
+.eyebrow{margin:0 0 12px;color:#ff9a5c;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.title{margin:0 0 14px;color:#fff;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;letter-spacing:-.05em;line-height:1.1}
+.title span{display:block;margin-top:4px;color:#ff7420}
+.lead{max-width:620px;margin:0 0 20px;color:#c5d4e2;font-size:1rem;line-height:1.7}
+
+.preparing{display:flex;align-items:center;margin:20px 0 4px;color:#8fa7bd;font-size:.9rem;font-weight:600}
+.dots{display:inline-flex;gap:5px;margin-right:10px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#ff7420;animation:dot 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}
+.dots i:nth-child(3){animation-delay:.3s}
+
+.surveyWrap{max-height:900px;margin:0 -6px;padding:0 6px;overflow:hidden;animation:surveyIn .8s cubic-bezier(.2,.8,.2,1) backwards}
+.progress{display:flex;gap:6px;margin:0 0 20px}
+.step{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.14);transition:background .3s ease}
+.stepOn{background:#ff7420}
+.question{min-width:0;margin:0 0 18px;padding:0;border:0;animation:questionIn .45s cubic-bezier(.2,.8,.2,1)}
+.question legend{margin:0 0 12px;padding:0;color:#fff;font-size:1.05rem;font-weight:800}
+.optional{margin-left:10px;color:#8fa7bd;font-size:.74rem;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{padding:10px 16px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.06);color:#e6eef6;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.chip:hover{border-color:#ff7420;transform:translateY(-1px)}
+.chip:focus-visible,.skip:focus-visible,.closeBtn:focus-visible{outline:3px solid #ff9a5c;outline-offset:3px}
+.chipOn{border-color:#ff7420;background:#ff7420;color:#fff}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
+.navEnd{margin-left:auto}
+.skip{padding:10px 4px;border:0;background:none;color:#c5d4e2;font-size:.88rem;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.skip:hover{color:#fff}
+.notice{max-width:620px;margin:12px 0 0;color:#8fa7bd;font-size:.74rem;line-height:1.6}
+.notice a{color:#c5d4e2;text-decoration:underline}
+
+.closeBtn{position:absolute;top:16px;right:16px;z-index:2;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.closeBtn:hover{border-color:#ff7420;background:#ff7420}
+.adWrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:40px;align-items:center}
+.points{display:grid;gap:12px;margin:0 0 26px;padding:0;list-style:none}
+.points li{position:relative;padding-left:30px;color:#e6eef6;font-size:.98rem;line-height:1.5}
+.points li::before{content:'\2713';position:absolute;top:0;left:0;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,116,32,.2);color:#ff9a5c;font-size:.7rem;font-weight:800}
+.actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.moreLinks{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px}
+.moreLinks a{color:#ffb185;font-size:.86rem;font-weight:800}
+.moreLinks a:hover{text-decoration:underline}
+.adArt{display:flex;justify-content:center}
+.art{display:block;width:100%;max-width:480px;height:auto;overflow:visible}
+
+.float{animation:float 6s ease-in-out infinite}
+.floatSlow{animation:float 8s ease-in-out infinite reverse}
+.floatAlt{animation:float 7s ease-in-out -2s infinite}
+.dash{stroke-dasharray:6 8;animation:dash 1.4s linear infinite}
+.ring{transform-box:fill-box;transform-origin:center;animation:ring 2.6s ease-out infinite}
+.ringLate{transform-box:fill-box;transform-origin:center;animation:ring 2.6s ease-out 1.3s infinite}
+.blink{animation:blink 1.6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes dash{to{stroke-dashoffset:-28}}
+@keyframes ring{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+@keyframes letterIn{from{opacity:0;transform:translateY(.6em) scale(.8);filter:blur(8px)}}
+@keyframes lineIn{from{opacity:0;transform:scaleX(0)}}
+@keyframes glow{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+@keyframes brandOut{0%,80%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+@keyframes dot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+@keyframes surveyIn{from{max-height:0;opacity:0;transform:translateY(14px)}}
+@keyframes questionIn{from{opacity:0;transform:translateX(18px)}}
+@keyframes backdropIn{from{opacity:0}}
+@keyframes panelIn{from{opacity:0;transform:translateY(26px) scale(.96)}}
+@keyframes artIn{from{opacity:0;transform:translateX(30px) scale(.96)}}
+
+@media (prefers-reduced-motion:no-preference){
+  .backdrop{animation:backdropIn .5s ease}
+  .panel,.adPanel{animation:panelIn .7s cubic-bezier(.2,.8,.2,1)}
+  .adArt{animation:artIn .8s cubic-bezier(.2,.8,.2,1) .2s backwards}
+}
+
+@media (max-width:900px){
+  .adPanel{padding:56px 24px 24px}
+  .adWrap{grid-template-columns:1fr;gap:14px}
+  .adArt{order:-1}
+  .art{max-width:300px;max-height:160px}
+  .points{gap:8px;margin-bottom:18px}
+}
+@media (max-width:560px){
+  .panel{padding:24px 20px 20px;border-radius:22px}
+  .adPanel{border-radius:22px}
+  .brand{margin-bottom:14px}
+  .lead{margin-bottom:14px;font-size:.94rem;line-height:1.6}
+  .chip{padding:9px 13px;font-size:.84rem}
+  .navEnd{margin-left:0}
+  .actions :global(.button){width:100%}
+}
+@media (max-height:640px){
+  .adArt{display:none}
+  .adWrap{grid-template-columns:1fr}
+  .adPanel{padding-top:48px}
+}
+@media (prefers-reduced-motion:reduce){
+  .brandStage,.logoGlow,.letter,.logoLine,.dots i,.surveyWrap,.question,.float,.floatSlow,.floatAlt,.dash,.ring,.ringLate,.blink{animation:none}
+  .chip,.closeBtn,.step,.fitPanel,.fitAd{transition:none}
+  .chip:hover{transform:none}
+}
