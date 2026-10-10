@@ -1,4 +1,4 @@
-.backdrop{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:16px;overflow:hidden;color:#fff;background:radial-gradient(circle at 8% 0,rgba(255,116,32,.26),transparent 28%),radial-gradient(circle at 92% 100%,rgba(111,177,255,.16),transparent 30%),rgba(4,22,42,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.backdrop{position:fixed;inset:0;z-index:2000;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center;padding:16px;overflow:hidden;color:#fff;background:radial-gradient(circle at 8% 0,rgba(255,116,32,.26),transparent 28%),radial-gradient(circle at 92% 100%,rgba(111,177,255,.16),transparent 30%),rgba(4,22,42,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 
 .brandStage{position:relative;display:grid;place-items:center;gap:18px;animation:brandOut 2.4s ease forwards}
 .logoGlow{position:absolute;top:50%;left:50%;width:min(520px,90vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,116,32,.28),transparent 66%);animation:glow 2.4s ease-in-out infinite}
