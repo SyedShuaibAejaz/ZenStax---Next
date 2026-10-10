@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import FitBox from './FitBox';
 import WelcomeArt from './WelcomeArt';
 import { trackEvent } from './siteTracking';
 import styles from './promo-popup.module.css';
@@ -360,225 +361,231 @@ export default function PromoPopup() {
       }}
     >
       {stage === 'brand' && (
-        <div
-          className={styles.brandStage}
-          role='status'
-          aria-label='Welcome to ZenStax'
-        >
-          <div className={styles.logoGlow} aria-hidden='true' />
+        <>
+          <div
+            className={styles.brandStage}
+            role='status'
+            aria-label='Welcome to ZenStax'
+          >
+            <div className={styles.logoGlow} aria-hidden='true' />
 
-          <p className={styles.logo} aria-hidden='true'>
-            {LOGO.map((letter, index) => (
-              <span
-                key={`${letter}-${index}`}
-                className={`${styles.letter} ${index >= 3 ? styles.letterAccent : ''}`}
-                style={{ animationDelay: `${index * 80}ms` }}
-              >
-                {letter}
-              </span>
-            ))}
-          </p>
+            <p className={styles.logo} aria-hidden='true'>
+              {LOGO.map((letter, index) => (
+                <span
+                  key={`${letter}-${index}`}
+                  className={`${styles.letter} ${index >= 3 ? styles.letterAccent : ''}`}
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </p>
 
-          <span className={styles.logoLine} aria-hidden='true' />
+            <span className={styles.logoLine} aria-hidden='true' />
+          </div>
 
           <button type='button' className={styles.brandSkip} onClick={skipAll}>
             Skip
           </button>
-        </div>
+        </>
       )}
 
       {(stage === 'welcome' || stage === 'survey') && (
-        <div
-          className={styles.panel}
-          role='dialog'
-          aria-modal='true'
-          aria-labelledby='welcome-title'
-          ref={dialogRef}
-          tabIndex={-1}
-        >
-          <p className={styles.brand}>
-            Zen<span>Stax</span>
-          </p>
-
-          <p className={styles.eyebrow}>Welcome</p>
-
-          <h2 id='welcome-title' className={styles.title}>
-            Let us point you to the
-            <span>right solution.</span>
-          </h2>
-
-          {stage === 'welcome' && (
-            <p className={styles.preparing} role='status'>
-              <span className={styles.dots} aria-hidden='true'>
-                <i />
-                <i />
-                <i />
-              </span>
-              Getting a few questions ready
+        <FitBox className={styles.fitPanel}>
+          <div
+            className={styles.panel}
+            role='dialog'
+            aria-modal='true'
+            aria-labelledby='welcome-title'
+            ref={dialogRef}
+            tabIndex={-1}
+          >
+            <p className={styles.brand}>
+              Zen<span>Stax</span>
             </p>
-          )}
 
-          {stage === 'survey' && (
-            <div className={styles.surveyWrap}>
-              <p className={styles.lead}>
-                Answer a few quick questions, or skip straight to the website. Every
-                question is optional and it takes about ten seconds.
+            <p className={styles.eyebrow}>Welcome</p>
+
+            <h2 id='welcome-title' className={styles.title}>
+              Let us point you to the
+              <span>right solution.</span>
+            </h2>
+
+            {stage === 'welcome' && (
+              <p className={styles.preparing} role='status'>
+                <span className={styles.dots} aria-hidden='true'>
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                Getting a few questions ready
               </p>
+            )}
 
-              <div className={styles.progress} aria-hidden='true'>
-                {QUESTIONS.map((item, index) => (
-                  <span
-                    key={item.key}
-                    className={`${styles.step} ${index <= step ? styles.stepOn : ''}`}
-                  />
-                ))}
-              </div>
+            {stage === 'survey' && (
+              <div className={styles.surveyWrap}>
+                <p className={styles.lead}>
+                  Answer a few quick questions, or skip straight to the website.
+                  Every question is optional and it takes about ten seconds.
+                </p>
 
-              <fieldset key={question.key} className={styles.question}>
-                <legend>
-                  {question.label}
-                  <span className={styles.optional}>
-                    {step + 1} of {QUESTIONS.length}
-                  </span>
-                </legend>
-
-                <div className={styles.chips}>
-                  {question.options.map((option) => {
-                    const selected = answers[question.key] === option.value;
-
-                    return (
-                      <button
-                        key={option.value}
-                        type='button'
-                        className={`${styles.chip} ${selected ? styles.chipOn : ''}`}
-                        aria-pressed={selected}
-                        onClick={() => choose(question.key, option.value)}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
+                <div className={styles.progress} aria-hidden='true'>
+                  {QUESTIONS.map((item, index) => (
+                    <span
+                      key={item.key}
+                      className={`${styles.step} ${index <= step ? styles.stepOn : ''}`}
+                    />
+                  ))}
                 </div>
-              </fieldset>
 
-              <div className={styles.nav}>
-                {step > 0 && (
-                  <button type='button' className={styles.skip} onClick={back}>
-                    ← Back
+                <fieldset key={question.key} className={styles.question}>
+                  <legend>
+                    {question.label}
+                    <span className={styles.optional}>
+                      {step + 1} of {QUESTIONS.length}
+                    </span>
+                  </legend>
+
+                  <div className={styles.chips}>
+                    {question.options.map((option) => {
+                      const selected = answers[question.key] === option.value;
+
+                      return (
+                        <button
+                          key={option.value}
+                          type='button'
+                          className={`${styles.chip} ${selected ? styles.chipOn : ''}`}
+                          aria-pressed={selected}
+                          onClick={() => choose(question.key, option.value)}
+                        >
+                          {option.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+
+                <div className={styles.nav}>
+                  {step > 0 && (
+                    <button type='button' className={styles.skip} onClick={back}>
+                      ← Back
+                    </button>
+                  )}
+
+                  <button
+                    type='button'
+                    className={styles.skip}
+                    onClick={() => goNext(answers)}
+                  >
+                    Skip this question
                   </button>
-                )}
 
-                <button
-                  type='button'
-                  className={styles.skip}
-                  onClick={() => goNext(answers)}
-                >
-                  Skip this question
-                </button>
+                  <button
+                    type='button'
+                    className={`${styles.skip} ${styles.navEnd}`}
+                    onClick={skipAll}
+                  >
+                    Skip to website
+                  </button>
+                </div>
 
-                <button
-                  type='button'
-                  className={`${styles.skip} ${styles.navEnd}`}
-                  onClick={skipAll}
-                >
-                  Skip to website
-                </button>
+                <p className={styles.notice}>
+                  We record your choices anonymously, with no name, email, phone
+                  number, or IP address, to understand what visitors need and
+                  improve our website. Read our{' '}
+                  <a href='/privacy-policy' target='_blank' rel='noopener noreferrer'>
+                    Privacy Policy
+                  </a>
+                  .
+                </p>
               </div>
-
-              <p className={styles.notice}>
-                We record your choices anonymously, with no name, email, phone
-                number, or IP address, to understand what visitors need and improve
-                our website. Read our{' '}
-                <a href='/privacy-policy' target='_blank' rel='noopener noreferrer'>
-                  Privacy Policy
-                </a>
-                .
-              </p>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </FitBox>
       )}
 
       {stage === 'ad' && (
-        <div
-          className={styles.adPanel}
-          role='dialog'
-          aria-modal='true'
-          aria-labelledby='ad-title'
-          ref={dialogRef}
-          tabIndex={-1}
-        >
-          <button
-            type='button'
-            className={styles.closeBtn}
-            aria-label='Close and continue to the website'
-            onClick={closeAd}
+        <FitBox className={styles.fitAd}>
+          <div
+            className={styles.adPanel}
+            role='dialog'
+            aria-modal='true'
+            aria-labelledby='ad-title'
+            ref={dialogRef}
+            tabIndex={-1}
           >
-            ×
-          </button>
+            <button
+              type='button'
+              className={styles.closeBtn}
+              aria-label='Close and continue to the website'
+              onClick={closeAd}
+            >
+              ×
+            </button>
 
-          <div className={styles.adWrap}>
-            <div className={styles.adCopy}>
-              <p className={styles.brand}>
-                Zen<span>Stax</span>
-              </p>
+            <div className={styles.adWrap}>
+              <div className={styles.adCopy}>
+                <p className={styles.brand}>
+                  Zen<span>Stax</span>
+                </p>
 
-              <p className={styles.eyebrow}>{ad.eyebrow}</p>
+                <p className={styles.eyebrow}>{ad.eyebrow}</p>
 
-              <h2 id='ad-title' className={styles.title}>
-                {ad.title}
-                <span>{ad.accent}</span>
-              </h2>
+                <h2 id='ad-title' className={styles.title}>
+                  {ad.title}
+                  <span>{ad.accent}</span>
+                </h2>
 
-              <p className={styles.lead}>{ad.text}</p>
+                <p className={styles.lead}>{ad.text}</p>
 
-              <ul className={styles.points}>
-                {ad.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
+                <ul className={styles.points}>
+                  {ad.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
 
-              <div className={styles.actions}>
-                <Link
-                  href={ad.primary.href}
-                  className='button button-primary'
-                  onClick={() => adClick(ad.primary.href)}
-                >
-                  {ad.primary.label}
-                  <span aria-hidden='true'>→</span>
-                </Link>
-
-                <Link
-                  href='/contact'
-                  className='button button-secondary'
-                  onClick={() => adClick('/contact')}
-                >
-                  Talk to us
-                </Link>
-              </div>
-
-              <div className={styles.moreLinks}>
-                {ad.links.map((link) => (
+                <div className={styles.actions}>
                   <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => adClick(link.href)}
+                    href={ad.primary.href}
+                    className='button button-primary'
+                    onClick={() => adClick(ad.primary.href)}
                   >
-                    {link.label} →
+                    {ad.primary.label}
+                    <span aria-hidden='true'>→</span>
                   </Link>
-                ))}
+
+                  <Link
+                    href='/contact'
+                    className='button button-secondary'
+                    onClick={() => adClick('/contact')}
+                  >
+                    Talk to us
+                  </Link>
+                </div>
+
+                <div className={styles.moreLinks}>
+                  {ad.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => adClick(link.href)}
+                    >
+                      {link.label} →
+                    </Link>
+                  ))}
+                </div>
+
+                <button type='button' className={styles.skip} onClick={closeAd}>
+                  Continue to the website
+                </button>
               </div>
 
-              <button type='button' className={styles.skip} onClick={closeAd}>
-                Continue to the website
-              </button>
-            </div>
-
-            <div className={styles.adArt}>
-              <WelcomeArt name={adKey} />
+              <div className={styles.adArt}>
+                <WelcomeArt name={adKey} />
+              </div>
             </div>
           </div>
-        </div>
+        </FitBox>
       )}
     </div>
   );
