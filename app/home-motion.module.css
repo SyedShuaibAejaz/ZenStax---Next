@@ -1,3 +1,5 @@
+.heroSingle.heroSingle{grid-template-columns:minmax(0,860px)}
+
 .demos{padding:88px 0;background:#f4f7fa}
 .demosHead{max-width:720px;margin-bottom:40px}
 .demosHead h2{margin:8px 0 12px}
@@ -15,13 +17,11 @@
 
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
 @keyframes riseSlide{from{transform:translateY(22px)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(28px)}}
 @keyframes reveal{from{opacity:0;transform:translateY(28px)}}
 
 @media (prefers-reduced-motion:no-preference){
   .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 90ms)}
   .riseSlide{animation:riseSlide .8s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 90ms)}
-  .slideIn{animation:slideIn .9s cubic-bezier(.2,.7,.2,1) .25s backwards}
 
   @supports (animation-timeline:view()){
     .reveal{animation:reveal linear backwards;animation-timeline:view();animation-range:entry calc(var(--i,0) * 8%) entry calc(45% + var(--i,0) * 8%)}
