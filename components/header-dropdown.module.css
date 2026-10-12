@@ -1,0 +1,160 @@
+.dropdown {
+  position: relative;
+}
+
+.trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 27px 0 25px;
+  border: 0;
+  background: none;
+  color: #c1d0df;
+  cursor: pointer;
+  font: inherit;
+  transition: color 0.2s ease;
+}
+
+.trigger:hover,
+.open .trigger,
+.trigger.active {
+  color: var(--white);
+}
+
+.trigger::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--orange);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.trigger.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.caret {
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.open .caret {
+  margin-top: 3px;
+  transform: rotate(-135deg);
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: -16px;
+  z-index: 120;
+  min-width: 270px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: var(--navy-dark);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+  visibility: hidden;
+}
+
+.open .menu {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.dropdown .menu a.menuLink {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 8px;
+  color: #d6e2ed;
+  transition: background 0.18s ease;
+}
+
+.dropdown .menu a.menuLink:hover,
+.dropdown .menu a.menuLinkActive {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.menuLink strong {
+  display: block;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.menuLink span {
+  display: block;
+  margin-top: 2px;
+  color: #9fb6cd;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+@media (hover: hover) and (min-width: 721px) {
+  .dropdown:hover .menu,
+  .dropdown:focus-within .menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .dropdown:hover .trigger {
+    color: var(--white);
+  }
+}
+
+@media (max-width: 720px) {
+  .trigger {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    color: #d6e2ed;
+    font-size: 0.94rem;
+  }
+
+  .trigger::after {
+    display: none;
+  }
+
+  .trigger.active {
+    color: var(--orange);
+  }
+
+  .menu {
+    position: static;
+    display: none;
+    min-width: 0;
+    padding: 4px 0 8px 12px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+
+  .open .menu {
+    display: block;
+  }
+}
