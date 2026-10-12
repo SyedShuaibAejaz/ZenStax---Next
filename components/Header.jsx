@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import styles from "./header-dropdown.module.css";
 
 // Add new templates to the "Products" children list and they appear in the dropdown.
+// Later, replace the concept demos below with links to the functional demos.
 const navigation = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
@@ -16,7 +17,37 @@ const navigation = [
       {
         label: "ZenStax CRM",
         href: "/crm",
-        description: "Pipelines, contacts and reports",
+        description: "Our CRM template with a live demo",
+      },
+      {
+        label: "Real Estate Lead CRM",
+        href: "/demos/real-estate-crm",
+        description: "Interactive concept demo",
+      },
+      {
+        label: "Construction & Project ERP",
+        href: "/demos/construction-erp",
+        description: "Interactive concept demo",
+      },
+      {
+        label: "Business Website",
+        href: "/demos/business-website",
+        description: "Interactive concept demo",
+      },
+      {
+        label: "AI Automation",
+        href: "/demos/ai-automation",
+        description: "Interactive concept demo",
+      },
+      {
+        label: "Mobile App",
+        href: "/demos/mobile-app",
+        description: "Interactive concept demo",
+      },
+      {
+        label: "Network Security",
+        href: "/demos/network-security",
+        description: "Interactive concept demo",
       },
     ],
   },
