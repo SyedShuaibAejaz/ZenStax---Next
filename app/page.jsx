@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import HeroStudio from '../components/home/HeroStudio';
+import ServicesIndex from '../components/home/ServicesIndex';
 import PromoPopup from '../components/PromoPopup';
 import styles from './home-motion.module.css';
 
@@ -27,37 +29,6 @@ const jsonLd = {
   description:
     'Custom software, AI automation, CRM/ERP, network infrastructure and security solutions for businesses in Dubai and across the UAE.',
 };
-
-const services = [
-  {
-    number: '01',
-    title: 'Custom Software',
-    description:
-      'Web applications, dashboards, portals, and internal systems designed for your workflow.',
-    href: '/services/web-development',
-  },
-  {
-    number: '02',
-    title: 'AI Automation',
-    description:
-      'Automate repetitive work, customer follow-ups, reporting, and daily business processes.',
-    href: '/services/ai',
-  },
-  {
-    number: '03',
-    title: 'CRM & ERP',
-    description:
-      'Manage customers, operations, tasks, sales, and reports from one organized system.',
-    href: '/services/crm-erp',
-  },
-  {
-    number: '04',
-    title: 'Network & Security',
-    description:
-      'Network infrastructure, structured cabling, CCTV, and business security-system support.',
-    href: '/services/network-security',
-  },
-];
 
 const demos = [
   {
@@ -139,44 +110,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className='hero'>
-        <div className={`container hero-layout ${styles.heroSingle}`}>
-          <div className='hero-content'>
-            <p className={`eyebrow ${styles.rise}`} style={{ '--d': 0 }}>
-              Software <span>•</span> Data <span>•</span> Network{' '}
-              <span>•</span> Security
-            </p>
-
-            <h1 className={styles.riseSlide} style={{ '--d': 1 }}>
-              Technology that helps your business
-              <span> work better.</span>
-            </h1>
-
-            <p className={`hero-copy ${styles.rise}`} style={{ '--d': 2 }}>
-              ZenStax delivers custom software, AI automation, CRM/ERP,
-              network infrastructure, and security solutions for businesses in
-              Dubai and across the UAE.
-            </p>
-
-            <div className={`hero-actions ${styles.rise}`} style={{ '--d': 3 }}>
-              <Link href='/contact' className='button button-primary'>
-                Discuss Your Project
-                <span aria-hidden='true'>→</span>
-              </Link>
-
-              <Link href='/services' className='button button-secondary'>
-                Explore Services
-              </Link>
-            </div>
-
-            <div className={`hero-points ${styles.rise}`} style={{ '--d': 4 }}>
-              <span>Built around your workflow</span>
-              <span>Clear, practical solutions</span>
-              <span>Dubai & UAE support</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroStudio />
 
       <section className='intro-section'>
         <div className='container intro-grid'>
@@ -208,40 +142,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className='services-section'>
-        <div className='container'>
-          <div className={`section-heading ${styles.reveal}`}>
-            <div>
-              <p className='section-label'>What we do</p>
-              <h2>Solutions built around your business.</h2>
-            </div>
-
-            <Link href='/services' className='text-link desktop-link'>
-              View all services <span>→</span>
-            </Link>
-          </div>
-
-          <div className='service-grid'>
-            {services.map((service, index) => (
-              <article
-                className={`service-card ${styles.reveal}`}
-                style={{ '--i': index }}
-                key={service.number}
-              >
-                <span className='service-number'>{service.number}</span>
-
-                <h3>{service.title}</h3>
-
-                <p>{service.description}</p>
-
-                <Link href={service.href} className='service-link'>
-                  Learn more <span>→</span>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServicesIndex />
 
       <section className={styles.demos} id='demos'>
         <div className='container'>
