@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import ContactFormContent from "@/components/ContactFormContent";
+import ui from "@/components/pages/pages.module.css";
+import styles from "./contact.module.css";
 
 export const metadata = {
   title: "Contact ZenStax",
@@ -10,26 +12,42 @@ export const metadata = {
 function ContactLoading() {
   return (
     <>
-      <section className="page-hero">
-        <div className="container page-hero-content">
-          <p className="eyebrow">Contact ZenStax</p>
+      <section className={`${ui.pg} ${ui.hero} ${ui.onDark}`}>
+        <div className={ui.wrap}>
+          <div className={ui.heroUpper}>
+            <div className={ui.gridLines} aria-hidden="true">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <span key={index} />
+              ))}
+            </div>
 
-          <h1>
-            Tell us what is slowing
-            <span> your business down.</span>
-          </h1>
+            <div className={ui.metaBar}>
+              <span className={ui.mono}>(03) Contact / ZenStax</span>
+              <span className={ui.mono}>Ajman, United Arab Emirates</span>
+              <span className={ui.mono}>Email · WhatsApp · Form</span>
+            </div>
 
-          <p>
-            Share your challenge, workflow, or project idea. We will help you
-            identify a clear and practical next step.
-          </p>
+            <h1 className={ui.headline}>
+              Tell us what is slowing{" "}
+              <span className={ui.accent}>your business down.</span>
+            </h1>
+          </div>
+
+          <div className={ui.band}>
+            <p className={ui.lead}>
+              Share your challenge, workflow, or project idea. We will help you
+              identify a clear and practical next step.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="contact-section">
-        <div className="container">
-          <div className="contact-loading">
-            Loading contact form...
+      <section className={`${ui.pg} ${ui.sec} ${ui.secWhite}`}>
+        <div className={ui.wrap}>
+          <div className={styles.skeleton} aria-hidden="true">
+            <div className={styles.skeletonBar} style={{ width: "45%" }} />
+            <div className={styles.skeletonBar} style={{ width: "92%" }} />
+            <div className={styles.skeletonBar} style={{ width: "78%" }} />
           </div>
         </div>
       </section>

@@ -1,0 +1,235 @@
+/* Contact page composition — contact ledger + editorial form. */
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.introTitle {
+  margin: 0 0 18px;
+}
+
+.introCopy {
+  margin: 0 0 clamp(28px, 4vw, 40px);
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--strong);
+  color: var(--navy);
+}
+
+.detailRow:last-child {
+  border-bottom: 1px solid var(--strong);
+}
+
+.detailRow .mono {
+  color: #9fb0c2;
+}
+
+.detailValue {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.detailValue a {
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 2px solid var(--orange);
+  transition: color 0.2s ease;
+}
+
+.detailValue a:hover {
+  color: var(--orange);
+}
+
+.detailValue a:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* ---------- Form ---------- */
+
+.form {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.form label {
+  display: grid;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--strong);
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: 10px 0;
+  transition: border-color 0.2s ease;
+}
+
+.form textarea {
+  min-height: 120px;
+  resize: vertical;
+  border: 1px solid var(--strong);
+  padding: 12px;
+}
+
+.form select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--navy) 50%),
+    linear-gradient(135deg, var(--navy) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #9fb0c2;
+  font-weight: 400;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--orange);
+}
+
+.formError {
+  margin: 0;
+  color: #c0392b;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.formNote {
+  margin: 0;
+  color: #9fb0c2;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.formSubmit {
+  justify-self: start;
+}
+
+/* ---------- Success panel ---------- */
+
+.successPanel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  max-width: 760px;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.successIcon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.successPanel h2 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.successPanel p {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+/* ---------- Loading skeleton ---------- */
+
+.skeleton {
+  display: grid;
+  gap: 18px;
+  max-width: 640px;
+}
+
+.skeletonBar {
+  height: 14px;
+  background: linear-gradient(90deg, var(--surface) 25%, #e8eef4 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .successPanel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonBar {
+    animation: none;
+  }
+}

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, ValidationError } from "@formspree/react";
 import { FaWhatsapp } from "react-icons/fa";
-
+import ui from "@/components/pages/pages.module.css";
+import styles from "@/app/contact/contact.module.css";
 
 const challengeMessages = {
   "customer-follow-ups":
@@ -79,45 +80,63 @@ export default function ContactFormContent() {
   if (state.succeeded) {
     return (
       <>
-        <section className="page-hero">
-          <div className="container page-hero-content">
-            <p className="eyebrow">Enquiry received</p>
+        <section className={`${ui.pg} ${ui.hero} ${ui.onDark}`}>
+          <div className={ui.wrap}>
+            <div className={ui.heroUpper}>
+              <div className={ui.gridLines} aria-hidden="true">
+                {Array.from({ length: 12 }).map((_, index) => (
+                  <span key={index} />
+                ))}
+              </div>
 
-            <h1>
-              Thank you for contacting
-              <span> ZenStax.</span>
-            </h1>
+              <div className={ui.metaBar}>
+                <span className={ui.mono}>(03) Contact / ZenStax</span>
+                <span className={ui.mono}>Ajman, United Arab Emirates</span>
+                <span className={ui.mono}>Email · WhatsApp · Form</span>
+              </div>
 
-            <p>
-              Your enquiry has been sent successfully. We will review your
-              details and respond as soon as possible.
-            </p>
+              <h1 className={ui.headline}>
+                Thank you for contacting{" "}
+                <span className={ui.accent}>ZenStax.</span>
+              </h1>
+            </div>
+
+            <div className={ui.band}>
+              <p className={ui.lead}>
+                Your enquiry has been sent successfully. We will review your
+                details and respond as soon as possible.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="contact-section">
-          <div className="container">
-            <div className="success-card">
-              <span className="success-icon">✓</span>
+        <section className={`${ui.pg} ${ui.sec} ${ui.secWhite}`}>
+          <div className={ui.wrap}>
+            <div className={styles.successPanel}>
+              <span className={styles.successIcon} aria-hidden="true">
+                ✓
+              </span>
 
-              <h2>Your enquiry is on its way.</h2>
+              <div>
+                <h2>Your enquiry is on its way.</h2>
 
-              <p>
-                Thank you for sharing your requirement. Our team will review
-                it and contact you using the details you provided.
-              </p>
+                <p>
+                  Thank you for sharing your requirement. Our team will review
+                  it and contact you using the details you provided.
+                </p>
 
-              <a
-                className="button button-primary"
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                  whatsappMessage
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FaWhatsapp aria-hidden="true" />
-                Chat on WhatsApp
-              </a>
+                <a
+                  className="button button-primary"
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                    whatsappMessage,
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaWhatsapp aria-hidden="true" />
+                  Chat on WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -127,190 +146,212 @@ export default function ContactFormContent() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container page-hero-content">
-          <p className="eyebrow">Contact ZenStax</p>
+      <section className={`${ui.pg} ${ui.hero} ${ui.onDark}`}>
+        <div className={ui.wrap}>
+          <div className={ui.heroUpper}>
+            <div className={ui.gridLines} aria-hidden="true">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <span key={index} />
+              ))}
+            </div>
 
-          <h1>
-            Tell us what is slowing
-            <span> your business down.</span>
-          </h1>
+            <div className={ui.metaBar}>
+              <span className={ui.mono}>(03) Contact / ZenStax</span>
+              <span className={ui.mono}>Ajman, United Arab Emirates</span>
+              <span className={ui.mono}>Email · WhatsApp · Form</span>
+            </div>
 
-          <p>
-            Share your challenge, current workflow, or project idea. We will
-            help you identify a clear and practical next step.
-          </p>
+            <h1 className={ui.headline}>
+              Tell us what is slowing{" "}
+              <span className={ui.accent}>your business down.</span>
+            </h1>
+          </div>
+
+          <div className={ui.band}>
+            <p className={ui.lead}>
+              Share your challenge, current workflow, or project idea. We will
+              help you identify a clear and practical next step.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="contact-section">
-        <div className="container contact-grid">
-          <div className="contact-intro">
-            <p className="section-label">Start a conversation</p>
+      <section className={`${ui.pg} ${ui.sec} ${ui.secWhite}`}>
+        <div className={ui.wrap}>
+          <div className={styles.contactGrid}>
+            <div>
+              <h2 className={`${ui.display} ${styles.introTitle}`}>
+                Let&apos;s discuss <span>your requirements.</span>
+              </h2>
 
-            <h2>Let&apos;s discuss your requirements.</h2>
-
-            <p>
-              Whether you need software, AI automation, CRM/ERP, a mobile app,
-              network infrastructure, CCTV, or security support, send us the
-              details and we will review the best next step.
-            </p>
-
-            <div className="contact-details">
-              <div>
-                <span>Email</span>
-                <a href="mailto:hello@zenstaxit.net">
-                  contactus@zenstaxit.net
-                </a>
-              </div>
-
-              <div>
-                <span>Location</span>
-                <p>Ajman, United Arab Emirates</p>
-              </div>
-
-              <div>
-                <span>Prefer WhatsApp?</span>
-                <a
-                  className="contact-whatsapp-link"
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    whatsappMessage
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FaWhatsapp aria-hidden="true" />
-                  Chat with ZenStax
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <label>
-                Your name
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={updateField}
-                  placeholder="Your full name"
-                  autoComplete="name"
-                  required
-                />
-                <ValidationError
-                  prefix="Name"
-                  field="name"
-                  errors={state.errors}
-                />
-              </label>
-
-              <label>
-                Company name
-                <input
-                  type="text"
-                  name="company"
-                  value={form.company}
-                  onChange={updateField}
-                  placeholder="Your company"
-                  autoComplete="organization"
-                />
-              </label>
-            </div>
-
-            <div className="form-row">
-              <label>
-                Email address
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={updateField}
-                  placeholder="you@company.com"
-                  autoComplete="email"
-                  required
-                />
-                <ValidationError
-                  prefix="Email"
-                  field="email"
-                  errors={state.errors}
-                />
-              </label>
-
-              <label>
-                Phone number
-                <input
-                  type="tel"
-                  name="phone"
-                  value={form.phone}
-                  onChange={updateField}
-                  placeholder="+971 50 000 0000"
-                  autoComplete="tel"
-                />
-              </label>
-            </div>
-
-            <label>
-              What do you need help with?
-              <select
-                name="service"
-                value={form.service}
-                onChange={updateField}
-                required
-              >
-                <option value="" disabled>
-                  Select a service
-                </option>
-
-                <option value="Custom software">Custom software</option>
-                <option value="AI automation">AI automation</option>
-                <option value="CRM / ERP">CRM / ERP</option>
-                <option value="Mobile app">Mobile app</option>
-                <option value="Network / security systems">
-                  Network / security systems
-                </option>
-                <option value="Other requirement">Other requirement</option>
-              </select>
-            </label>
-
-            <label>
-              Project details
-              <textarea
-                name="message"
-                rows="6"
-                value={form.message}
-                onChange={updateField}
-                placeholder="Briefly describe your current workflow, challenge, or project idea."
-                required
-              />
-              <ValidationError
-                prefix="Message"
-                field="message"
-                errors={state.errors}
-              />
-            </label>
-
-            {state.errors && (
-              <p className="form-error">
-                We could not send your enquiry. Please check the fields and try
-                again, or contact us through WhatsApp.
+              <p className={`${ui.bodyCopy} ${styles.introCopy}`}>
+                Whether you need software, AI automation, CRM/ERP, a mobile
+                app, network infrastructure, CCTV, or security support, send us
+                the details and we will review the best next step.
               </p>
-            )}
 
-            <button
-              type="submit"
-              className="button button-primary"
-              disabled={state.submitting}
-            >
-              {state.submitting ? "Sending enquiry..." : "Send Enquiry"}
-              {!state.submitting && <span aria-hidden="true">→</span>}
-            </button>
+              <div>
+                <div className={styles.detailRow}>
+                  <span className={ui.mono}>01</span>
+                  <p className={styles.detailValue}>
+                    <a href="mailto:contactus@zenstaxit.net">
+                      contactus@zenstaxit.net
+                    </a>
+                  </p>
+                </div>
 
-            <p className="form-note">
-              Your details are used only to respond to this enquiry.
-            </p>
-          </form>
+                <div className={styles.detailRow}>
+                  <span className={ui.mono}>02</span>
+                  <p className={styles.detailValue}>
+                    Ajman, United Arab Emirates
+                  </p>
+                </div>
+
+                <div className={styles.detailRow}>
+                  <span className={ui.mono}>03</span>
+                  <p className={styles.detailValue}>
+                    <a
+                      href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                        whatsappMessage,
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <FaWhatsapp aria-hidden="true" /> Chat with ZenStax
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.formRow}>
+                <label>
+                  Your name
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={updateField}
+                    placeholder="Your full name"
+                    autoComplete="name"
+                    required
+                  />
+                  <ValidationError
+                    prefix="Name"
+                    field="name"
+                    errors={state.errors}
+                  />
+                </label>
+
+                <label>
+                  Company name
+                  <input
+                    type="text"
+                    name="company"
+                    value={form.company}
+                    onChange={updateField}
+                    placeholder="Your company"
+                    autoComplete="organization"
+                  />
+                </label>
+              </div>
+
+              <div className={styles.formRow}>
+                <label>
+                  Email address
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={updateField}
+                    placeholder="you@company.com"
+                    autoComplete="email"
+                    required
+                  />
+                  <ValidationError
+                    prefix="Email"
+                    field="email"
+                    errors={state.errors}
+                  />
+                </label>
+
+                <label>
+                  Phone number
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={updateField}
+                    placeholder="+971 50 000 0000"
+                    autoComplete="tel"
+                  />
+                </label>
+              </div>
+
+              <label>
+                What do you need help with?
+                <select
+                  name="service"
+                  value={form.service}
+                  onChange={updateField}
+                  required
+                >
+                  <option value="" disabled>
+                    Select a service
+                  </option>
+
+                  <option value="Custom software">Custom software</option>
+                  <option value="AI automation">AI automation</option>
+                  <option value="CRM / ERP">CRM / ERP</option>
+                  <option value="Mobile app">Mobile app</option>
+                  <option value="Network / security systems">
+                    Network / security systems
+                  </option>
+                  <option value="Other requirement">Other requirement</option>
+                </select>
+              </label>
+
+              <label>
+                Project details
+                <textarea
+                  name="message"
+                  rows="6"
+                  value={form.message}
+                  onChange={updateField}
+                  placeholder="Briefly describe your current workflow, challenge, or project idea."
+                  required
+                />
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                />
+              </label>
+
+              {state.errors && (
+                <p className={styles.formError}>
+                  We could not send your enquiry. Please check the fields and
+                  try again, or contact us through WhatsApp.
+                </p>
+              )}
+
+              <div className={styles.formSubmit}>
+                <button
+                  type="submit"
+                  className="button button-primary"
+                  disabled={state.submitting}
+                >
+                  {state.submitting ? "Sending enquiry..." : "Send Enquiry"}
+                  {!state.submitting && <span aria-hidden="true">→</span>}
+                </button>
+
+                <p className={styles.formNote}>
+                  Your details are used only to respond to this enquiry.
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
     </>
