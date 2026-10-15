@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import SectionLabel from './SectionLabel';
 import { ServicePlate } from './ServicePlates';
 import styles from './studio.module.css';
 
@@ -10,8 +11,7 @@ const SERVICES = [
     id: '01',
     title: 'Custom Software',
     tag: 'Web · Dashboards · Portals',
-    description:
-      'Web applications, dashboards, portals, and internal systems designed for your workflow.',
+    description: 'Web applications, dashboards, portals, and internal systems designed for your workflow.',
     capabilities: ['Web applications', 'Dashboards', 'Customer portals', 'Internal systems'],
     href: '/services/web-development',
     plate: 'software',
@@ -20,8 +20,7 @@ const SERVICES = [
     id: '02',
     title: 'AI Automation',
     tag: 'Workflows · Follow-ups · Reporting',
-    description:
-      'Automate repetitive work, customer follow-ups, reporting, and daily business processes.',
+    description: 'Automate repetitive work, customer follow-ups, reporting, and daily business processes.',
     capabilities: ['Repetitive work', 'Customer follow-ups', 'Reporting', 'Daily processes'],
     href: '/services/ai',
     plate: 'ai',
@@ -30,8 +29,7 @@ const SERVICES = [
     id: '03',
     title: 'CRM & ERP',
     tag: 'Customers · Operations · Sales',
-    description:
-      'Manage customers, operations, tasks, sales, and reports from one organized system.',
+    description: 'Manage customers, operations, tasks, sales, and reports from one organized system.',
     capabilities: ['Customers', 'Operations and tasks', 'Sales', 'Reports'],
     href: '/services/crm-erp',
     plate: 'crm',
@@ -40,8 +38,7 @@ const SERVICES = [
     id: '04',
     title: 'Network & Security',
     tag: 'Infrastructure · Cabling · CCTV',
-    description:
-      'Network infrastructure, structured cabling, CCTV, and business security-system support.',
+    description: 'Network infrastructure, structured cabling, CCTV, and business security-system support.',
     capabilities: ['Infrastructure', 'Structured cabling', 'CCTV', 'Security systems'],
     href: '/services/network-security',
     plate: 'network',
@@ -56,16 +53,16 @@ export default function ServicesIndex() {
 
   return (
     <section className={styles.services} id='capabilities' aria-labelledby='services-title'>
-      <div className={styles.frame}>
-        <div className={styles.secHead}>
-          <p className={styles.mono}>(04) Services &amp; capabilities</p>
+      <div className={styles.wrap}>
+        <SectionLabel n='03' label='Services & capabilities' />
 
-          <h2 id='services-title' className={styles.secTitle}>
+        <div className={styles.secHead}>
+          <h2 id='services-title' className={styles.display}>
             Solutions built <span>around your business.</span>
           </h2>
 
           <Link href='/services' className={styles.textLink}>
-            View all services →
+            View all services <span aria-hidden='true'>→</span>
           </Link>
         </div>
 
@@ -128,17 +125,14 @@ export default function ServicesIndex() {
           <div className={styles.plateWrap} aria-hidden='true'>
             <div className={styles.plate}>
               {SERVICES.map((service, index) => (
-                <div
-                  key={service.id}
-                  className={`${styles.plateLayer} ${shown === index ? styles.plateOn : ''}`}
-                >
+                <div key={service.id} className={`${styles.plateLayer} ${shown === index ? styles.plateOn : ''}`}>
                   <ServicePlate kind={service.plate} />
                 </div>
               ))}
             </div>
 
             <div className={styles.plateCap}>
-              <span className={styles.mono}>Fig. 02.{shown + 1}</span>
+              <span className={styles.mono}>Fig. 03.{shown + 1}</span>
               <span className={styles.mono}>{current.title}</span>
             </div>
           </div>

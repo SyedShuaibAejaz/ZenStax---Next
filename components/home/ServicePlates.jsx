@@ -1,9 +1,11 @@
 import styles from './studio.module.css';
 
-const INK = '#0A0A0B';
-const LINE = '#D4D4D4';
-const SOFT = '#E5E5E5';
-const ACCENT = '#FF7420';
+const INK = '#061d36';
+const LINE = '#c4d2df';
+const SOFT = '#dce5ed';
+const PAPER = '#f4f7fa';
+const ACCENT = '#ff7420';
+const MUTED = '#637488';
 const MONO = 'ui-monospace, Menlo, monospace';
 
 function SoftwarePlate() {
@@ -27,17 +29,17 @@ function SoftwarePlate() {
       <rect x='356' y='236' width='18' height='56' fill={LINE} />
       <rect x='382' y='218' width='18' height='74' fill={INK} />
       <rect x='408' y='244' width='18' height='48' fill={SOFT} />
-      <text x='152' y='292' fontSize='9' letterSpacing='1.5' fill='#737373' fontFamily={MONO}>APP / DASHBOARD / PORTAL</text>
+      <text x='152' y='292' fontSize='9' letterSpacing='1.5' fill={MUTED} fontFamily={MONO}>APP / DASHBOARD / PORTAL</text>
     </svg>
   );
 }
 
 function AiPlate() {
   const nodes = [
-    { x: 240, y: 70, label: 'TRIGGER', dx: 34, dy: 4 },
-    { x: 350, y: 180, label: 'ACTION', dx: 34, dy: 4 },
-    { x: 240, y: 290, label: 'REPORT', dx: 34, dy: 4 },
-    { x: 130, y: 180, label: 'FOLLOW-UP', dx: -34, dy: 4, end: true },
+    { x: 240, y: 70, label: 'TRIGGER', dx: 34 },
+    { x: 350, y: 180, label: 'ACTION', dx: 34 },
+    { x: 240, y: 290, label: 'REPORT', dx: 34 },
+    { x: 130, y: 180, label: 'FOLLOW-UP', dx: -34, end: true },
   ];
 
   return (
@@ -47,9 +49,7 @@ function AiPlate() {
         <g key={node.label}>
           <circle cx={node.x} cy={node.y} r='18' fill='#fff' stroke={INK} />
           <circle cx={node.x} cy={node.y} r='4' fill={ACCENT} />
-          <text x={node.x + node.dx} y={node.y + node.dy} fontSize='9' letterSpacing='1.5' textAnchor={node.end ? 'end' : 'start'} fill='#737373' fontFamily={MONO}>
-            {node.label}
-          </text>
+          <text x={node.x + node.dx} y={node.y + 4} fontSize='9' letterSpacing='1.5' textAnchor={node.end ? 'end' : 'start'} fill={MUTED} fontFamily={MONO}>{node.label}</text>
         </g>
       ))}
       <text x='240' y='184' fontSize='11' letterSpacing='2' textAnchor='middle' fill={INK} fontFamily={MONO}>WORKFLOW</text>
@@ -68,8 +68,8 @@ function CrmPlate() {
     <svg viewBox='0 0 480 360'>
       {columns.map((column, columnIndex) => (
         <g key={column.label}>
-          <rect x={column.x} y='48' width='120' height='264' fill='#F9F9FB' stroke={SOFT} />
-          <text x={column.x + 10} y='70' fontSize='9' letterSpacing='1.5' fill='#737373' fontFamily={MONO}>{column.label}</text>
+          <rect x={column.x} y='48' width='120' height='264' fill={PAPER} stroke={SOFT} />
+          <text x={column.x + 10} y='70' fontSize='9' letterSpacing='1.5' fill={MUTED} fontFamily={MONO}>{column.label}</text>
           {Array.from({ length: column.cards }).map((_, cardIndex) => (
             <g key={cardIndex}>
               <rect x={column.x + 10} y={88 + cardIndex * 56} width='100' height='46' fill='#fff' stroke={LINE} />
@@ -109,12 +109,7 @@ function NetworkPlate() {
   );
 }
 
-const PLATES = {
-  software: SoftwarePlate,
-  ai: AiPlate,
-  crm: CrmPlate,
-  network: NetworkPlate,
-};
+const PLATES = { software: SoftwarePlate, ai: AiPlate, crm: CrmPlate, network: NetworkPlate };
 
 export function ServicePlate({ kind }) {
   const Plate = PLATES[kind];
